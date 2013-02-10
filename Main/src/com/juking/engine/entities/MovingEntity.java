@@ -1,9 +1,11 @@
 package com.juking.engine.entities;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix3;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.juking.engine.ai.SteeringBehaviour;
 import com.juking.engine.common.Vector2DLibrary;
 
 /**
@@ -11,6 +13,7 @@ import com.juking.engine.common.Vector2DLibrary;
  * Also includes methods which allow the entity to move in the world
  */
 public abstract class MovingEntity extends Entity {
+  //region Protected Variables
   protected Vector2 velocity;
   // A Normalized vector pointing in the direction the entity is heading.
   protected Vector2 heading;
@@ -22,8 +25,11 @@ public abstract class MovingEntity extends Entity {
   protected float maxForce;
   protected float maxTurnRate;
   protected Vector2 destination;
-  protected SteeringBehaviour steeringBehaviour;
   protected ShapeRenderer shapeRenderer;
+  protected SpriteBatch batch;
+  protected Texture texture;
+  protected Rectangle rectangle;
+  //endregion
 
   /**
    * Defines a entity that can move. The moving entity uses vector based information for moving
@@ -39,11 +45,11 @@ public abstract class MovingEntity extends Entity {
    */
   public MovingEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate, float newMaxSpeed) {
     super(newPosition, newRadius, newScale);
-    velocity = newVelocity;
+    setVelocity(newVelocity);
     setHeading(newHeading);
     mass = newMass;
-    maxTurnRate = newTurnRate;
-    maxSpeed = newMaxSpeed;
+    setMaxTurnRate(newTurnRate);
+    setMaxSpeed(newMaxSpeed);
     shapeRenderer = new ShapeRenderer();
   }
 

@@ -2,7 +2,7 @@ package com.juking.engine.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Opponent extends Entity {
+public class Opponent extends MovingEntity {
 
   @Override
   public void render(SpriteBatch batch) {
@@ -10,7 +10,7 @@ public class Opponent extends Entity {
   }
 
   @Override
-  protected void move() {
+  protected void move(float timeElapsed) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 }

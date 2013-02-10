@@ -11,8 +11,6 @@ public abstract class Entity {
 
   public abstract void render(SpriteBatch batch);
 
-  protected abstract void move();
-
   public void setX(float x) {
     destination.x = x;
   }

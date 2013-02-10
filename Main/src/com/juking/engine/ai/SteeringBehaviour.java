@@ -1,9 +1,17 @@
 package com.juking.engine.ai;
 
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 
+/**
+ *
+ */
 public class SteeringBehaviour {
-  public Vector3 calculate() {
-    return new Vector3();
+
+  /**
+   * @return
+   */
+  public Vector2 calculate() {
+    return new Vector2();
   }
+
 }

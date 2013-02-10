@@ -1,8 +1,10 @@
 package com.juking.engine.entities;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Vector2;
 import com.juking.engine.ai.SteeringBehaviour;
+import com.juking.engine.common.Vector2DLibrary;
 
 /**
  * Entity which can move in the world. Includes all of the information required to move the entity, such as speed, velocity and headings.
@@ -21,6 +23,7 @@ public abstract class MovingEntity extends Entity {
   protected float maxTurnRate;
   protected Vector2 destination;
   protected SteeringBehaviour steeringBehaviour;
+  protected ShapeRenderer shapeRenderer;
 
   /**
    * Defines a entity that can move. The moving entity uses vector based information for moving
@@ -37,10 +40,11 @@ public abstract class MovingEntity extends Entity {
   public MovingEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate, float newMaxSpeed) {
     super(newPosition, newRadius, newScale);
     velocity = newVelocity;
-    heading = newHeading;
+    setHeading(newHeading);
     mass = newMass;
     maxTurnRate = newTurnRate;
     maxSpeed = newMaxSpeed;
+    shapeRenderer = new ShapeRenderer();
   }
 
   /**
@@ -136,7 +140,7 @@ public abstract class MovingEntity extends Entity {
     assert ((heading.len2() - 1.0) < 0.00001);
     heading = newHeading;
     // The side vector must always be perpendicular to the heading
-    //side = heading.lerp();
+    side = Vector2DLibrary.Perpendicular(heading);
   }
 
   /**
@@ -160,11 +164,11 @@ public abstract class MovingEntity extends Entity {
     // The next few lines use a rotation matrix to rotate the player's heading vector accordingly
     Matrix3 rotationMatrix = new Matrix3();
     //notice how the direction of rotation has to be determined when creating the rotation matrix
-    // rotationMatrix.rotate(angle * heading.Sign(toTarget));
+    rotationMatrix.rotate(angle * Vector2DLibrary.Sign(heading, toTarget));
     rotationMatrix.translate(heading);
     rotationMatrix.translate(velocity);
-    // finally recreate m_vSide
-    // side = heading.lerp();
+    // finally recreate the side vector
+    side = Vector2DLibrary.Perpendicular(heading);
     return false;
   }
 
@@ -183,17 +187,10 @@ public abstract class MovingEntity extends Entity {
   }
 
   /**
-   * @param x
+   * @param newDestination
    */
-  public void setDestinationX(float x) {
-    destination.x = x;
-  }
-
-  /**
-   * @param y
-   */
-  public void setDestinationY(float y) {
-    destination.y = y;
+  public void setDestination(Vector2 newDestination) {
+    destination = newDestination;
   }
 
   /**

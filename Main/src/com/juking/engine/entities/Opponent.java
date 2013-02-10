@@ -1,6 +1,6 @@
 package com.juking.engine.entities;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -23,10 +23,10 @@ public class Opponent extends MovingEntity {
   }
 
   /**
-   * @param batch
+   * @param camera
    */
   @Override
-  public void render(SpriteBatch batch) {
+  public void render(Camera camera) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 

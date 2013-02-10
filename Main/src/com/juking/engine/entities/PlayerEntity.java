@@ -2,88 +2,57 @@ package com.juking.engine.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.juking.engine.ai.behaviours.Steering;
+import com.badlogic.gdx.math.Vector3;
+import com.juking.engine.Engine;
 
 /**
- *
+ * Represents a Player Entity in the world
  */
 public class PlayerEntity extends MovingEntity {
 
+  //region Constructor
+
   /**
-   * @param newPosition
-   * @param newRadius
-   * @param newScale
-   * @param newVelocity
-   * @param newHeading
-   * @param newMass
-   * @param newTurnRate
-   * @param newMaxSpeed
+   * Creates a new entity which represents a player in the world
+   *
+   * @param newPosition Position to create the entity
+   * @param newRadius   Collision radius for the entity
+   * @param newScale    Scale of the entity (Size)
+   * @param newVelocity Velocity that the entity travels at
+   * @param newHeading  Heading that the entity is pointing
+   * @param newMass     Mass (Weight) of the entity
+   * @param newTurnRate Rate at which the entity can turn
+   * @param newMaxSpeed Maximum speed that the entity can travel at
    */
-  public PlayerEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate, float newMaxSpeed) {
-    super(newPosition, newRadius, newScale, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed);
+  public PlayerEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Engine currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate, float newMaxSpeed) {
+    super(newPosition, newRadius, newScale, currentWorld, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed);
     destination = position;
     texture = new Texture(Gdx.files.internal("wisp.jpg"));
     rectangle = new Rectangle(800 / 2 - 48 / 2, 20, 48, 48);
-    batch = new SpriteBatch();
+    color = Color.BLUE;
   }
+  //endregion
+
+  //region Public Methods
 
   /**
-   * @param camera
+   * Renders the given entity
+   *
+   * @param camera Camera which is used to render the entity
    */
   @Override
   public void render(Camera camera) {
-    move(1);
-    batch.setProjectionMatrix(camera.combined);
-    // Draw the character
-    renderEntity();
-    shapeRenderer.setProjectionMatrix(camera.combined);
-    renderPositionVectors();
-    renderTextureRectangle();
-    renderRadius();
-  }
-
-  private void renderEntity() {
-    batch.begin();
-    batch.draw(texture, rectangle.x - 24, rectangle.y - 24);
-    batch.end();
-  }
-
-  private void renderRadius() {
-    shapeRenderer.begin(ShapeRenderer.ShapeType.Circle);
-    shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 0.1f);
-    shapeRenderer.circle(rectangle.x, rectangle.y, boundingRadius);
-    shapeRenderer.end();
-  }
-
-  private void renderTextureRectangle() {
-    shapeRenderer.begin(ShapeRenderer.ShapeType.Rectangle);
-    shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 0.1f);
-    shapeRenderer.rect(rectangle.x - 24, rectangle.y - 24, rectangle.width, rectangle.height);
-    shapeRenderer.end();
-  }
-
-  private void renderPositionVectors() {
-    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-    shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 0.1f);
-    shapeRenderer.line(position.x, position.y, position.x + heading.x, position.y + heading.y);
-    shapeRenderer.line(position.x, position.y, position.x + side.x, position.y + side.y);
-    shapeRenderer.end();
-  }
-
-  /**
-   * @param timeElapsed
-   */
-  @Override
-  protected void move(float timeElapsed) {
+    super.render(camera);
+    if (Gdx.input.isTouched()) {
+      Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+      camera.unproject(touchPos);
+      setDestination(new Vector2(touchPos.x - 24 / 2, touchPos.y - 24 / 2));
+    }
     setHeading(new Vector2(destination).sub(position).nor());
-    position.x = position.x + heading.x;
-    position.y = position.y + heading.y;
-    rectangle.x = position.x;
-    rectangle.y = position.y;
   }
+  //endregion
 }

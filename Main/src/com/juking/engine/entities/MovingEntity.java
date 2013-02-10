@@ -1,11 +1,14 @@
 package com.juking.engine.entities;
 
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.juking.engine.Engine;
 import com.juking.engine.common.Vector2DLibrary;
 
 /**
@@ -13,6 +16,7 @@ import com.juking.engine.common.Vector2DLibrary;
  * Also includes methods which allow the entity to move in the world
  */
 public abstract class MovingEntity extends Entity {
+
   //region Protected Variables
   protected Vector2 velocity;
   // A Normalized vector pointing in the direction the entity is heading.
@@ -29,7 +33,10 @@ public abstract class MovingEntity extends Entity {
   protected SpriteBatch batch;
   protected Texture texture;
   protected Rectangle rectangle;
+  protected Color color;
   //endregion
+
+  //region Constructor
 
   /**
    * Defines a entity that can move. The moving entity uses vector based information for moving
@@ -43,15 +50,22 @@ public abstract class MovingEntity extends Entity {
    * @param newTurnRate Rate at which the entity can turn
    * @param newMaxSpeed Maximum speed that the entity can travel at
    */
-  public MovingEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate, float newMaxSpeed) {
-    super(newPosition, newRadius, newScale);
+  public MovingEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Engine currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate,
+                      float newMaxSpeed) {
+    super(newPosition, newRadius, newScale, currentWorld);
     setVelocity(newVelocity);
     setHeading(newHeading);
     mass = newMass;
     setMaxTurnRate(newTurnRate);
     setMaxSpeed(newMaxSpeed);
     shapeRenderer = new ShapeRenderer();
+    batch = new SpriteBatch();
+    // Set the color to white, just in case it wasn't already set
+    color = Color.WHITE;
   }
+  //endregion
+
+  //region Properties
 
   /**
    * @return
@@ -112,13 +126,6 @@ public abstract class MovingEntity extends Entity {
   /**
    * @return
    */
-  public boolean isSpeedMaxedOut() {
-    return maxSpeed * maxSpeed >= velocity.len2();
-  }
-
-  /**
-   * @return
-   */
   public float speed() {
     return velocity.len();
   }
@@ -147,6 +154,47 @@ public abstract class MovingEntity extends Entity {
     heading = newHeading;
     // The side vector must always be perpendicular to the heading
     side = Vector2DLibrary.Perpendicular(heading);
+  }
+
+  /**
+   * @return
+   */
+  public float getMaxTurnRate() {
+    return maxTurnRate;
+  }
+
+  /**
+   * @param newMaxTurnRate
+   */
+  public void setMaxTurnRate(float newMaxTurnRate) {
+    maxTurnRate = newMaxTurnRate;
+  }
+
+  /**
+   * @param newDestination
+   */
+  public void setDestination(Vector2 newDestination) {
+    destination = newDestination;
+  }
+  //endregion
+
+  //region Public Methods
+
+  /**
+   * Renders the given entity
+   *
+   * @param camera Camera which is used to render the entity
+   */
+  @Override
+  public void render(Camera camera) {
+    move(1);
+    batch.setProjectionMatrix(camera.combined);
+    // Draw the character
+    renderEntity();
+    shapeRenderer.setProjectionMatrix(camera.combined);
+    renderPositionVectors();
+    renderTextureRectangle();
+    renderRadius();
   }
 
   /**
@@ -181,26 +229,62 @@ public abstract class MovingEntity extends Entity {
   /**
    * @return
    */
-  public float getMaxTurnRate() {
-    return maxTurnRate;
+  public boolean isSpeedMaxedOut() {
+    return maxSpeed * maxSpeed >= velocity.len2();
+  }
+  //endregion
+
+  //region Protected Methods
+
+  /**
+   * Method which moves the entity
+   *
+   * @param timeElapsed Time Elapsed
+   */
+  protected void move(float timeElapsed) {
+    setPosition(new Vector2(position).add(heading));
+    rectangle.x = position.x;
+    rectangle.y = position.y;
   }
 
   /**
-   * @param newMaxTurnRate
+   * Renders the entity
    */
-  public void setMaxTurnRate(float newMaxTurnRate) {
-    maxTurnRate = newMaxTurnRate;
+  protected void renderEntity() {
+    batch.begin();
+    batch.draw(texture, rectangle.x - 24, rectangle.y - 24);
+    batch.end();
   }
 
   /**
-   * @param newDestination
+   * Renders the radius. This should only be used for debugging
    */
-  public void setDestination(Vector2 newDestination) {
-    destination = newDestination;
+  protected void renderRadius() {
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Circle);
+    shapeRenderer.setColor(color);
+    shapeRenderer.circle(rectangle.x, rectangle.y, boundingRadius);
+    shapeRenderer.end();
   }
 
   /**
-   * @param timeElapsed
+   * Renders the texture rectangle. This is only for debugging
    */
-  protected abstract void move(float timeElapsed);
+  protected void renderTextureRectangle() {
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Rectangle);
+    shapeRenderer.setColor(color);
+    shapeRenderer.rect(rectangle.x - 24, rectangle.y - 24, rectangle.width, rectangle.height);
+    shapeRenderer.end();
+  }
+
+  /**
+   * Renders the position vectors. This is only for debugging
+   */
+  protected void renderPositionVectors() {
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+    shapeRenderer.setColor(color);
+    shapeRenderer.line(position.x, position.y, position.x + heading.x, position.y + heading.y);
+    shapeRenderer.line(position.x, position.y, position.x + side.x, position.y + side.y);
+    shapeRenderer.end();
+  }
+  //endregion
 }

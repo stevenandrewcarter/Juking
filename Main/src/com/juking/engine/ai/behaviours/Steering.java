@@ -1,21 +1,28 @@
 package com.juking.engine.ai.behaviours;
 
 import com.badlogic.gdx.math.Vector2;
-import com.juking.engine.entities.MovingEntity;
+import com.juking.engine.ai.Agent;
 
 /**
  *
  */
 public abstract class Steering {
 
-  protected MovingEntity entity;
+  protected Agent agent;
 
-  public Steering(MovingEntity newEntity) {
-    entity = newEntity;
+  /**
+   * Default constructor for steering behaviours
+   *
+   * @param newAgent Agent which utilises this behaviour
+   */
+  public Steering(Agent newAgent) {
+    agent = newAgent;
   }
 
   /**
-   * @return
+   * Calculates the desired vector for implementing the behaviour
+   *
+   * @return A vector to the desired location that the agent wants to move towards
    */
   public abstract Vector2 calculate();
 

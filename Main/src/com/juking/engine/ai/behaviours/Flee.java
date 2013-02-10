@@ -1,23 +1,34 @@
 package com.juking.engine.ai.behaviours;
 
 import com.badlogic.gdx.math.Vector2;
-import com.juking.engine.entities.MovingEntity;
+import com.juking.engine.ai.Agent;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Steven
- * Date: 10/02/13
- * Time: 18:07
- * To change this template use File | Settings | File Templates.
+ * Given a target, this behavior returns a steering force which will direct the agent away from the target
  */
 public class Flee extends Steering {
 
-  public Flee(MovingEntity newEntity) {
-    super(newEntity);
+  /**
+   * Constructs a fleeing behaviour
+   *
+   * @param newAgent Agent which utilises this behaviour
+   */
+  public Flee(Agent newAgent) {
+    super(newAgent);
   }
 
+  /**
+   * Calculates the desired vector for implementing the behaviour
+   *
+   * @return A vector to the desired location that the agent wants to move towards
+   */
   @Override
   public Vector2 calculate() {
-    return new Vector2();
+    // Normal(Agent.Position - TargetPos) * Agent.MaxSpeed
+    Vector2 targetPosition = agent.getTarget().getPosition().tmp();
+    Vector2 agentPosition = agent.getEntity().getPosition().tmp();
+    float agentMaxSpeed = agent.getEntity().getMaxSpeed();
+    Vector2 desiredVelocity = agentPosition.sub(targetPosition).nor().mul(agentMaxSpeed);
+    return desiredVelocity.sub(agent.getEntity().getVelocity());
   }
 }

@@ -5,17 +5,17 @@ import com.badlogic.gdx.math.Vector3;
 
 public abstract class Entity {
 
-  // Protected Variables
-  protected Vector3 source;
-  protected Vector3 destination;
+  // Location of the entity in the environment
+  protected Vector3 position;
+  // Unique identifier for each entity
+  protected int id;
+  // Indicates the size of the entity
+  protected float boundingRadius;
 
   public abstract void render(SpriteBatch batch);
 
-  public void setX(float x) {
-    destination.x = x;
-  }
-
-  public void setY(float y) {
-    destination.y = y;
+  public Entity(int entityId, float newRadius) {
+    id = entityId;
+    boundingRadius = newRadius;
   }
 }

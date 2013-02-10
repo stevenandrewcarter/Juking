@@ -19,7 +19,7 @@ public class Engine extends Game {
     camera = new OrthographicCamera();
     camera.setToOrtho(false, 800, 480);
     batch = new SpriteBatch();
-    player = new Player();
+    player = new Player(1, 5.0f);
   }
 
   @Override

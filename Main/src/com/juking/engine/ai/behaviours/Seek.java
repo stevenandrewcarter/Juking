@@ -25,10 +25,10 @@ public class Seek extends Steering {
   @Override
   public Vector2 calculate() {
     // Normal(TargetPos - Agent.Position) * Agent.MaxSpeed
-    Vector2 targetPosition = agent.getTarget().getPosition().tmp();
-    Vector2 agentPosition = agent.getEntity().getPosition().tmp();
+    Vector2 targetPosition = agent.getTarget().getPosition();
+    Vector2 agentPosition = agent.getEntity().getPosition();
     float agentMaxSpeed = agent.getEntity().getMaxSpeed();
-    Vector2 desiredVelocity = targetPosition.sub(agentPosition).nor().mul(agentMaxSpeed);
+    Vector2 desiredVelocity = targetPosition.tmp().sub(agentPosition).nor().mul(agentMaxSpeed);
     return desiredVelocity.sub(agent.getEntity().getVelocity());
   }
 }

@@ -1,0 +1,6 @@
+{
+    "name": "EasyAgent",
+    "behaviours": [
+        "Seek"
+    ]
+}

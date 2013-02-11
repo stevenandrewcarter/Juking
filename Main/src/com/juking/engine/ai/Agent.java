@@ -3,6 +3,7 @@ package com.juking.engine.ai;
 import com.badlogic.gdx.math.Vector2;
 import com.juking.engine.Engine;
 import com.juking.engine.ai.behaviours.Flee;
+import com.juking.engine.ai.behaviours.Seek;
 import com.juking.engine.ai.behaviours.Steering;
 import com.juking.engine.entities.MovingEntity;
 import com.juking.engine.entities.PlayerEntity;
@@ -41,7 +42,7 @@ public class Agent {
     feelers = new LinkedList<Vector2>();
     boundingBoxLength = 0;
     feelerLength = 0;
-    addSteeringBehaviour("Flee", new Flee(this));
+    addSteeringBehaviour("Seek", new Seek(this));
   }
   //endregion
 

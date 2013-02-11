@@ -1,0 +1,26 @@
+{
+    "entities": {
+        "player": {
+            "radius": 24,
+            "scale": {
+                "height": 1,
+                "width": 1
+            },
+            "mass": 1,
+            "turn_rate": 1,
+            "max_speed": 0.5
+        },
+        "agents": [
+            {
+                "radius": 24,
+                "scale": {
+                    "height": 1,
+                    "width": 1
+                },
+                "mass": 1,
+                "turn_rate": 1,
+                "max_speed": 0.5
+            }
+        ]
+    }
+}

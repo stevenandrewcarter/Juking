@@ -31,7 +31,7 @@ public class PlayerEntity extends MovingEntity {
   public PlayerEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Engine currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate, float newMaxSpeed) {
     super(newPosition, newRadius, newScale, currentWorld, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed);
     destination = position;
-    texture = new Texture(Gdx.files.internal("wisp.jpg"));
+    texture = new Texture(Gdx.files.internal("images/wisp.jpg"));
     rectangle = new Rectangle(800 / 2 - 48 / 2, 20, 48, 48);
     color = Color.BLUE;
   }

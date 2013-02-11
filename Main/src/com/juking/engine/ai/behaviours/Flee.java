@@ -25,10 +25,10 @@ public class Flee extends Steering {
   @Override
   public Vector2 calculate() {
     // Normal(Agent.Position - TargetPos) * Agent.MaxSpeed
-    Vector2 targetPosition = agent.getTarget().getPosition().tmp();
-    Vector2 agentPosition = agent.getEntity().getPosition().tmp();
+    Vector2 targetPosition = agent.getTarget().getPosition();
+    Vector2 agentPosition = agent.getEntity().getPosition();
     float agentMaxSpeed = agent.getEntity().getMaxSpeed();
-    Vector2 desiredVelocity = agentPosition.sub(targetPosition).nor().mul(agentMaxSpeed);
+    Vector2 desiredVelocity = agentPosition.tmp().sub(targetPosition).nor().mul(agentMaxSpeed);
     return desiredVelocity.sub(agent.getEntity().getVelocity());
   }
 }

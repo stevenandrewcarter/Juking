@@ -1,8 +1,8 @@
 package com.juking.engine.ai;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.juking.engine.Engine;
-import com.juking.engine.ai.behaviours.Flee;
 import com.juking.engine.ai.behaviours.Seek;
 import com.juking.engine.ai.behaviours.Steering;
 import com.juking.engine.entities.MovingEntity;
@@ -34,7 +34,7 @@ public class Agent {
    *
    * @param newEntity Entity which represents the agent in the world
    */
-  public Agent(MovingEntity newEntity) {
+  public Agent(MovingEntity newEntity, Array behaviours) {
     entity = newEntity;
     steering = new HashMap<String, Steering>();
     steeringForce = new Vector2();
@@ -42,7 +42,10 @@ public class Agent {
     feelers = new LinkedList<Vector2>();
     boundingBoxLength = 0;
     feelerLength = 0;
-    addSteeringBehaviour("Seek", new Seek(this));
+    for (Iterator<String> iterator = behaviours.iterator(); iterator.hasNext(); ) {
+      String behaviour = iterator.next();
+      addSteeringBehaviour(behaviour, Steering.create(this, behaviour));
+    }
   }
   //endregion
 

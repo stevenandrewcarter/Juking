@@ -88,7 +88,8 @@ public class Engine extends Game {
               new Vector2(1.0f, 0.0f),
               Float.parseFloat(agentEntity.get("mass").toString()),
               Float.parseFloat(agentEntity.get("turn_rate").toString()),
-              Float.parseFloat(agentEntity.get("max_speed").toString())));
+              Float.parseFloat(agentEntity.get("max_speed").toString()),
+              (Array)agentEntity.get("behaviours")));
     }
   }
 

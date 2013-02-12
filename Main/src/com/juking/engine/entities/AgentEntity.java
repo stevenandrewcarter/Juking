@@ -37,8 +37,8 @@ public class AgentEntity extends MovingEntity {
     super(newPosition, newRadius, newScale, currentWorld, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed);
     agent = new Agent(this, behaviours);
     destination = position;
-    texture = new Texture(Gdx.files.internal("images/wisp.jpg"));
-    rectangle = new Rectangle(800 / 2 - 48 / 2, 20, 48, 48);
+    // texture = new Texture(Gdx.files.internal("images/wisp.jpg"));
+    rectangle = new Rectangle(800 / 2 - 32 / 2, 20, 32, 32);
     color = Color.RED;
   }
   //endregion

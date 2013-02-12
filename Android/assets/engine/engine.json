@@ -1,7 +1,7 @@
 {
     "entities": {
         "player": {
-            "radius": 24,
+            "radius": 16,
             "scale": {
                 "height": 1,
                 "width": 1
@@ -12,7 +12,7 @@
         },
         "agents": [
             {
-                "radius": 24,
+                "radius": 16,
                 "scale": {
                     "height": 1,
                     "width": 1

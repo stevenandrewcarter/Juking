@@ -251,9 +251,9 @@ public abstract class MovingEntity extends Entity {
    * Renders the entity
    */
   protected void renderEntity() {
-    batch.begin();
-    batch.draw(texture, rectangle.x - 24, rectangle.y - 24);
-    batch.end();
+    // batch.begin();
+    // batch.draw(texture, rectangle.x - 24, rectangle.y - 24);
+    // batch.end();
   }
 
   /**
@@ -272,7 +272,7 @@ public abstract class MovingEntity extends Entity {
   protected void renderTextureRectangle() {
     shapeRenderer.begin(ShapeRenderer.ShapeType.Rectangle);
     shapeRenderer.setColor(color);
-    shapeRenderer.rect(rectangle.x - 24, rectangle.y - 24, rectangle.width, rectangle.height);
+    shapeRenderer.rect(rectangle.x - 16, rectangle.y - 16, rectangle.width, rectangle.height);
     shapeRenderer.end();
   }
 

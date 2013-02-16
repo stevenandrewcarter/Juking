@@ -2,8 +2,7 @@ package com.juking.engine.ai;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.juking.engine.Engine;
-import com.juking.engine.ai.behaviours.Seek;
+import com.juking.engine.AbstractScreen;
 import com.juking.engine.ai.behaviours.Steering;
 import com.juking.engine.entities.MovingEntity;
 import com.juking.engine.entities.PlayerEntity;
@@ -85,7 +84,7 @@ public class Agent {
    * Allows the agent to determine what it can see in the world
    */
   public void scan() {
-    Engine world = entity.getWorld();
+    AbstractScreen world = entity.getWorld();
     for (Iterator<MovingEntity> entity = world.getMovingEntities().iterator(); entity.hasNext(); ) {
       MovingEntity currentEntity = entity.next();
       if (currentEntity instanceof PlayerEntity) {

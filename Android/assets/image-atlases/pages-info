@@ -1,0 +1,12 @@
+
+splash_screen1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+splash
+  rotate: false
+  xy: 0, 0
+  size: 512, 320
+  orig: 512, 320
+  offset: 0, 0
+  index: -1

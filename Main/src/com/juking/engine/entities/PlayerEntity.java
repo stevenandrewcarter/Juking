@@ -3,11 +3,10 @@ package com.juking.engine.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.juking.engine.Engine;
+import com.juking.engine.AbstractScreen;
 
 /**
  * Represents a Player Entity in the world
@@ -28,7 +27,8 @@ public class PlayerEntity extends MovingEntity {
    * @param newTurnRate Rate at which the entity can turn
    * @param newMaxSpeed Maximum speed that the entity can travel at
    */
-  public PlayerEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Engine currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate, float newMaxSpeed) {
+  public PlayerEntity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate,
+                      float newMaxSpeed) {
     super(newPosition, newRadius, newScale, currentWorld, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed);
     destination = position;
     // texture = new Texture(Gdx.files.internal("images/wisp.jpg"));

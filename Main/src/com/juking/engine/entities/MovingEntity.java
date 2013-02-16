@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.juking.engine.Engine;
+import com.juking.engine.AbstractScreen;
 import com.juking.engine.common.Vector2DLibrary;
 
 /**
@@ -50,8 +50,8 @@ public abstract class MovingEntity extends Entity {
    * @param newTurnRate Rate at which the entity can turn
    * @param newMaxSpeed Maximum speed that the entity can travel at
    */
-  public MovingEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Engine currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate,
-                      float newMaxSpeed) {
+  public MovingEntity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass,
+                      float newTurnRate, float newMaxSpeed) {
     super(newPosition, newRadius, newScale, currentWorld);
     setVelocity(newVelocity);
     setHeading(newHeading);
@@ -242,6 +242,10 @@ public abstract class MovingEntity extends Entity {
    * @param timeElapsed Time Elapsed
    */
   protected void move(float timeElapsed) {
+    if (position.x < 0) position.x = 0;
+    else if (position.x > 800 - rectangle.width) position.x = 800 - rectangle.width;
+    if (position.y < 0) position.y = 0;
+    else if (position.y > 480 - rectangle.height) position.y = 480 - rectangle.height;
     setPosition(new Vector2(position).add(heading));
     rectangle.x = position.x;
     rectangle.y = position.y;

@@ -2,7 +2,7 @@ package com.juking.engine.entities;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
-import com.juking.engine.Engine;
+import com.juking.engine.AbstractScreen;
 
 /**
  *
@@ -19,7 +19,7 @@ public abstract class Entity {
   // Indicates the size of the entity
   protected float boundingRadius;
   // World which the entity exists in
-  protected Engine world;
+  protected AbstractScreen world;
   //endregion
 
   //region Constructor
@@ -32,7 +32,7 @@ public abstract class Entity {
    * @param newScale     Size of the entity
    * @param currentWorld World the entity exists in
    */
-  public Entity(Vector2 newPosition, float newRadius, Vector2 newScale, Engine currentWorld) {
+  public Entity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld) {
     // Retrieve the next id for the entity
     id = GetNextId();
     boundingRadius = newRadius;
@@ -67,7 +67,7 @@ public abstract class Entity {
    *
    * @return The world
    */
-  public Engine getWorld() {
+  public AbstractScreen getWorld() {
     return world;
   }
   //endregion

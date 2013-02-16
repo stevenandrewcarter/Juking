@@ -1,12 +1,10 @@
 package com.juking.engine.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.juking.engine.Engine;
+import com.juking.engine.AbstractScreen;
 import com.juking.engine.ai.Agent;
 
 /**
@@ -32,7 +30,7 @@ public class AgentEntity extends MovingEntity {
    * @param newTurnRate Rate at which the entity can turn
    * @param newMaxSpeed Maximum speed that the entity can travel at
    */
-  public AgentEntity(Vector2 newPosition, float newRadius, Vector2 newScale, Engine currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate,
+  public AgentEntity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate,
                      float newMaxSpeed, Array behaviours) {
     super(newPosition, newRadius, newScale, currentWorld, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed);
     agent = new Agent(this, behaviours);

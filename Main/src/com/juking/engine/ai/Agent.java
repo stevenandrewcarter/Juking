@@ -87,7 +87,7 @@ public class Agent {
   public void scan() {
     AbstractScreen world = entity.getWorld();
     for (Iterator<Entity> entity = world.getMovingEntities().iterator(); entity.hasNext(); ) {
-      MovingEntity currentEntity = (MovingEntity)entity.next();
+      MovingEntity currentEntity = (MovingEntity) entity.next();
       if (currentEntity instanceof PlayerEntity) {
         setTarget(currentEntity);
       }

@@ -15,7 +15,6 @@ import com.juking.engine.AbstractScreen;
 import com.juking.engine.Engine;
 import com.juking.engine.entities.AgentEntity;
 import com.juking.engine.entities.Entity;
-import com.juking.engine.entities.MovingEntity;
 import com.juking.engine.entities.PlayerEntity;
 
 import java.util.Iterator;
@@ -59,7 +58,7 @@ public class GameScreen extends AbstractScreen {
     camera.update();
     tileMapRenderer.render(camera);
     for (Iterator<Entity> entity = movingEntities.iterator(); entity.hasNext(); ) {
-      entity.next().render(camera);
+      entity.next().render(camera, delta);
     }
   }
 

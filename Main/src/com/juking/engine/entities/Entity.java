@@ -7,8 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.juking.engine.AbstractScreen;
 
-import java.util.List;
-
 /**
  *
  */
@@ -85,7 +83,7 @@ public abstract class Entity extends Image {
    *
    * @param camera Camera which is used to render the entity
    */
-  public abstract void render(Camera camera);
+  public abstract void render(Camera camera, float delta);
   //endregion
 
   //region Private Static Methods

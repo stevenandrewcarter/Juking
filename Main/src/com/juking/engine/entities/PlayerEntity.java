@@ -47,8 +47,8 @@ public class PlayerEntity extends MovingEntity {
    * @param camera Camera which is used to render the entity
    */
   @Override
-  public void render(Camera camera) {
-    super.render(camera);
+  public void render(Camera camera, float delta) {
+    super.render(camera, delta);
     if (Gdx.input.isTouched()) {
       Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
       camera.unproject(touchPos);

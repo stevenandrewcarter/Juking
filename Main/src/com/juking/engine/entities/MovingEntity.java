@@ -2,7 +2,6 @@ package com.juking.engine.entities;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -40,10 +39,10 @@ public abstract class MovingEntity extends Entity {
   protected Vector2 destination;
   protected ShapeRenderer shapeRenderer;
   protected SpriteBatch batch;
-  protected Texture texture;
   protected Rectangle rectangle;
   protected Color color;
   protected Animation animation;
+  private float animationState;
   private Map<TextureRegion, Drawable> tiltAnimationDrawables;
   //endregion
 
@@ -78,6 +77,7 @@ public abstract class MovingEntity extends Entity {
     for (TextureAtlas.AtlasRegion region : animationFrames) {
       tiltAnimationDrawables.put(region, new TextureRegionDrawable(region));
     }
+    animationState = 0;
   }
   //endregion
 
@@ -202,11 +202,11 @@ public abstract class MovingEntity extends Entity {
    * @param camera Camera which is used to render the entity
    */
   @Override
-  public void render(Camera camera) {
-    move(1);
+  public void render(Camera camera, float delta) {
+    move(delta);
     batch.setProjectionMatrix(camera.combined);
     // Draw the character
-    renderEntity();
+    renderEntity(delta);
     shapeRenderer.setProjectionMatrix(camera.combined);
     renderPositionVectors();
     renderTextureRectangle();
@@ -270,22 +270,26 @@ public abstract class MovingEntity extends Entity {
   /**
    * Renders the entity
    */
-  protected void renderEntity() {
+  protected void renderEntity(float delta) {
+    animationState += delta;
+    if (animationState > 3) {
+      animationState = 0;
+    }
     // the animation's frame to be shown
-    TextureRegion frame = animation.getKeyFrame(0, false);
-    setDrawable(tiltAnimationDrawables.get(frame));
+    TextureRegion frame = animation.getKeyFrame(animationState, false);
     batch.begin();
-    batch.draw(frame.getTexture(), rectangle.x, rectangle.y);
+    tiltAnimationDrawables.get(frame).draw(batch, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     batch.end();
   }
 
   /**
    * Renders the radius. This should only be used for debugging
    */
+
   protected void renderRadius() {
     shapeRenderer.begin(ShapeRenderer.ShapeType.Circle);
     shapeRenderer.setColor(color);
-    shapeRenderer.circle(rectangle.x, rectangle.y, boundingRadius);
+    shapeRenderer.circle(rectangle.x + (rectangle.width / 2), rectangle.y + (rectangle.height / 2), boundingRadius);
     shapeRenderer.end();
   }
 
@@ -295,7 +299,7 @@ public abstract class MovingEntity extends Entity {
   protected void renderTextureRectangle() {
     shapeRenderer.begin(ShapeRenderer.ShapeType.Rectangle);
     shapeRenderer.setColor(color);
-    shapeRenderer.rect(rectangle.x - 16, rectangle.y - 16, rectangle.width, rectangle.height);
+    shapeRenderer.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     shapeRenderer.end();
   }
 

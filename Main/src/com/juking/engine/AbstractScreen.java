@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.juking.engine.entities.Entity;
-import com.juking.engine.entities.MovingEntity;
 
 import java.util.List;
 

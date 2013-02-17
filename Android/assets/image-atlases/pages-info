@@ -17,6 +17,20 @@ player
   orig: 34, 55
   offset: 0, 0
   index: 1
+player
+  rotate: false
+  xy: 36, 0
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: 4
+player
+  rotate: false
+  xy: 72, 0
+  size: 34, 54
+  orig: 34, 54
+  offset: 0, 0
+  index: 3
 
 splash_screen1.png
 format: RGBA8888

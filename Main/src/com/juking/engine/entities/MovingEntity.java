@@ -3,13 +3,22 @@ package com.juking.engine.entities;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.juking.engine.AbstractScreen;
 import com.juking.engine.common.Vector2DLibrary;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Entity which can move in the world. Includes all of the information required to move the entity, such as speed, velocity and headings.
@@ -34,6 +43,8 @@ public abstract class MovingEntity extends Entity {
   protected Texture texture;
   protected Rectangle rectangle;
   protected Color color;
+  protected Animation animation;
+  private Map<TextureRegion, Drawable> tiltAnimationDrawables;
   //endregion
 
   //region Constructor
@@ -51,8 +62,8 @@ public abstract class MovingEntity extends Entity {
    * @param newMaxSpeed Maximum speed that the entity can travel at
    */
   public MovingEntity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass,
-                      float newTurnRate, float newMaxSpeed) {
-    super(newPosition, newRadius, newScale, currentWorld);
+                      float newTurnRate, float newMaxSpeed, Array<TextureAtlas.AtlasRegion> animationFrames) {
+    super(newPosition, newRadius, newScale, currentWorld, animationFrames);
     setVelocity(newVelocity);
     setHeading(newHeading);
     mass = newMass;
@@ -62,6 +73,11 @@ public abstract class MovingEntity extends Entity {
     batch = new SpriteBatch();
     // Set the color to white, just in case it wasn't already set
     color = Color.WHITE;
+    this.animation = new Animation(0.15f, animationFrames);
+    this.tiltAnimationDrawables = new HashMap<TextureRegion, Drawable>();
+    for (TextureAtlas.AtlasRegion region : animationFrames) {
+      tiltAnimationDrawables.put(region, new TextureRegionDrawable(region));
+    }
   }
   //endregion
 
@@ -255,9 +271,12 @@ public abstract class MovingEntity extends Entity {
    * Renders the entity
    */
   protected void renderEntity() {
-    // batch.begin();
-    // batch.draw(texture, rectangle.x - 24, rectangle.y - 24);
-    // batch.end();
+    // the animation's frame to be shown
+    TextureRegion frame = animation.getKeyFrame(0, false);
+    setDrawable(tiltAnimationDrawables.get(frame));
+    batch.begin();
+    batch.draw(frame.getTexture(), rectangle.x, rectangle.y);
+    batch.end();
   }
 
   /**

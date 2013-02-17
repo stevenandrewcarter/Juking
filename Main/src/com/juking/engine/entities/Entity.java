@@ -1,13 +1,18 @@
 package com.juking.engine.entities;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
 import com.juking.engine.AbstractScreen;
+
+import java.util.List;
 
 /**
  *
  */
-public abstract class Entity {
+public abstract class Entity extends Image {
 
   //region Protected Variables
   // Location of the entity in the environment
@@ -32,7 +37,8 @@ public abstract class Entity {
    * @param newScale     Size of the entity
    * @param currentWorld World the entity exists in
    */
-  public Entity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld) {
+  public Entity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld, Array<TextureAtlas.AtlasRegion> animation) {
+    super(animation.get(0));
     // Retrieve the next id for the entity
     id = GetNextId();
     boundingRadius = newRadius;

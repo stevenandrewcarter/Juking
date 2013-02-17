@@ -21,7 +21,7 @@
                 "turn_rate": 1,
                 "max_speed": 0.5,
                 "behaviours": [
-                    "Seek"
+                    "Flee"
                 ]
             }
         ]

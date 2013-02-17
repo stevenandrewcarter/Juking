@@ -5,7 +5,12 @@
  </tileset>
  <layer name="Tile Layer 1" width="25" height="15">
   <data encoding="base64" compression="zlib">
-   eJxTYWBg0KIhVgViZSCWoxKWx8JWRLJDg0Lz1YBYHwsbZocBEWZIArEUGpbG4Rdku5D9QQhrEghnZHNxhRUpWAGHXnksasm1gxS9lNgBCjttGttBbf+O2jG87NBhwCwjqIl1gRgAHEAuDw==
+   eJxTYWBg0KIhVgViZSCWoxKWx8JWRLJDg0Lz1YBYHwsbZocBEWZIArEUGpbG4Rdku5D9QQhrEghnZHNxhRUpWAGHXnksasm1gxS9hNQpEAg7bSq6hRI80HaoMEDSDi3t0AFi3WEQVtS0AxQm6GUENTEovAFktC47
+  </data>
+ </layer>
+ <layer name="obsticles" width="25" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQxFo0sEOOSimhz2jYGAAPeKYXuloFKACALtWAPw=
   </data>
  </layer>
 </map>

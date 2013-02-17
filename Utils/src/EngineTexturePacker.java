@@ -17,8 +17,7 @@ public class EngineTexturePacker {
     settings.padding = 2;
     settings.edgePadding = false;
     // set the maximum dimension of each image atlas
-    settings.maxWidth = 512;
-    settings.maxWidth = 512;
+    settings.maxWidth = 1344;
     // don't repack a group when no changes were made to it
     settings.incremental = true;
     // pack the images

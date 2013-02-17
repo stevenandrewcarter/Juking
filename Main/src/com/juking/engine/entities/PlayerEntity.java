@@ -3,9 +3,11 @@ package com.juking.engine.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.juking.engine.AbstractScreen;
 
 /**
@@ -28,8 +30,8 @@ public class PlayerEntity extends MovingEntity {
    * @param newMaxSpeed Maximum speed that the entity can travel at
    */
   public PlayerEntity(Vector2 newPosition, float newRadius, Vector2 newScale, AbstractScreen currentWorld, Vector2 newVelocity, Vector2 newHeading, float newMass, float newTurnRate,
-                      float newMaxSpeed) {
-    super(newPosition, newRadius, newScale, currentWorld, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed);
+                      float newMaxSpeed, Array<TextureAtlas.AtlasRegion> regions) {
+    super(newPosition, newRadius, newScale, currentWorld, newVelocity, newHeading, newMass, newTurnRate, newMaxSpeed, regions);
     destination = position;
     // texture = new Texture(Gdx.files.internal("images/wisp.jpg"));
     rectangle = new Rectangle(800 / 2 - 32 / 2, 20, 32, 32);

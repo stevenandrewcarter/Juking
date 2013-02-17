@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.juking.engine.entities.Entity;
 import com.juking.engine.entities.MovingEntity;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public abstract class AbstractScreen implements Screen {
   private Skin skin;
   private TextureAtlas atlas;
   private Table table;
-  protected List<MovingEntity> movingEntities;
+  protected List<Entity> movingEntities;
 
 
   public AbstractScreen(Engine currentEngine) {
@@ -46,7 +47,7 @@ public abstract class AbstractScreen implements Screen {
    *
    * @return A List of moving entities
    */
-  public List<MovingEntity> getMovingEntities() {
+  public List<Entity> getMovingEntities() {
     return movingEntities;
   }
 

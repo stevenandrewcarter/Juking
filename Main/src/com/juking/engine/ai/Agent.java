@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.juking.engine.AbstractScreen;
 import com.juking.engine.ai.behaviours.Steering;
+import com.juking.engine.entities.Entity;
 import com.juking.engine.entities.MovingEntity;
 import com.juking.engine.entities.PlayerEntity;
 
@@ -85,8 +86,8 @@ public class Agent {
    */
   public void scan() {
     AbstractScreen world = entity.getWorld();
-    for (Iterator<MovingEntity> entity = world.getMovingEntities().iterator(); entity.hasNext(); ) {
-      MovingEntity currentEntity = entity.next();
+    for (Iterator<Entity> entity = world.getMovingEntities().iterator(); entity.hasNext(); ) {
+      MovingEntity currentEntity = (MovingEntity)entity.next();
       if (currentEntity instanceof PlayerEntity) {
         setTarget(currentEntity);
       }

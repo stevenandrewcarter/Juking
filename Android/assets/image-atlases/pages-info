@@ -1,4 +1,23 @@
 
+player1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+player
+  rotate: false
+  xy: 0, 0
+  size: 34, 55
+  orig: 34, 55
+  offset: 0, 0
+  index: 2
+player
+  rotate: false
+  xy: 0, 57
+  size: 34, 55
+  orig: 34, 55
+  offset: 0, 0
+  index: 1
+
 splash_screen1.png
 format: RGBA8888
 filter: Linear,Linear
